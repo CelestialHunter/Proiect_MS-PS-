@@ -1,0 +1,237 @@
+﻿<Window x:Class="Proiect_MS_PS_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proiect_MS_PS_"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:winformchart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        mc:Ignorable="d"
+        Title="Distribuții Balea-Micloș" Height="450" Width="800" SizeChanged="Window_SizeChanged">
+    <Grid Background="#212750">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".05*"/>
+            <ColumnDefinition Width=".9*"/>
+            <ColumnDefinition Width=".05*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".8*"/>
+            <RowDefinition Height=".1*"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="distrTabControl" Grid.Row="1" Grid.Column="1" SelectionChanged="distrTabControl_SelectionChanged">
+            <TabItem x:Name="bernTab">
+                <TabItem.Header>
+                    <Grid>
+                        <Viewbox x:Name="bernVB" MaxWidth="200">
+                            <TextBlock Text="Distribuție Bernoulli"/>
+                        </Viewbox>
+                    </Grid>
+                </TabItem.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="bernWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="bernChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+                    <Label Margin="0" Content="p" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="bernPbTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="0.5" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="bernItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>
+                    
+                    <Button x:Name="bernGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="bernGenBT_Click"/>
+                    <Button x:Name="bernResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="bernResetBT_Click"/>
+                </Grid>
+
+            </TabItem>
+            <TabItem x:Name="unifTab">
+                <TabItem.Header>
+                    <Grid>
+                        <Viewbox x:Name="unifVB" MaxWidth="200">
+                            <TextBlock Text="Distribuție Uniform Discretă"/>
+                        </Viewbox>
+                    </Grid>
+                </TabItem.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width=".25*"/>
+                            <ColumnDefinition Width=".25*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".1*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height=".1*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height=".1*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height=".1*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height=".1*"/>
+                        </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="unifWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="unifChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+
+                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="unifItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="1" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Interval [a, b)" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="2" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="unifLowerTB" Grid.Column="0" Margin="32,10,10,10" Grid.Row="5" Text="1" TextWrapping="Wrap"/>
+                        <TextBox x:Name="unifUpperTB" Grid.Column="1" Margin="10,10,32,10" Grid.Row="5" Text="10" TextWrapping="Wrap"/>
+                    </Grid>
+                    
+
+                    <Button x:Name="unifGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="unifGetBT_Click"/>
+                    <Button x:Name="uinifResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="uinifResetBT_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="geomTab">
+                <TabItem.Header>
+                    <Grid>
+                        <Viewbox x:Name="geomVB" MaxWidth="200">
+                            <TextBlock Text="Distribuție Geometrică"/>
+                        </Viewbox>
+                    </Grid>
+                </TabItem.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="geomWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="geomChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+
+
+                    <Label Margin="0" Content="p" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="geomPbTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="0.5" TextWrapping="Wrap"/>
+                    
+                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="geomItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>                 
+
+                    <Button x:Name="geomGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="geomGetBT_Click"/>
+                    <Button x:Name="geomfResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="geomfResetBT_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="expTab">
+                <TabItem.Header>
+                    <Grid>
+                        <Viewbox x:Name="expVB" MaxWidth="200">
+                            <TextBlock Text="Distribuție Exponențială"/>
+                        </Viewbox>
+                    </Grid>
+                </TabItem.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="expWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="expChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+
+
+                    <Label Margin="0" Content="Theta (θ)" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="expPbTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="0.5" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="expItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>
+
+                    <Button x:Name="expGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="expGetBT_Click"/>
+                    <Button x:Name="expfResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="expfResetBT_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="exitTab">
+                <TabItem.Header>
+                    <Grid>
+                        <Viewbox x:Name="exitVB" MaxWidth="200">
+                            <TextBlock Text="Părăsire Aplicație"/>
+                        </Viewbox>
+                    </Grid>
+                </TabItem.Header>
+            </TabItem>            
+        </TabControl>
+    </Grid>
+
+</Window>

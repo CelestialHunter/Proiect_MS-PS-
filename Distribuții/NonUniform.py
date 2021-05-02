@@ -3,15 +3,10 @@ import numpy as np
 
 class NonUnif:
 
-    def __init__(self, a, b, *p):
-        self.a = int(a)
-        self.b = int(b)
-        self.p = np.array(p)
-        self.n = b - a
-        self.interval = self.generate_interval()
-
-    def generate_interval(self):
-        return np.linspace(self.a, self. b, self.b - self.a + 1, dtype=int)
+    def __init__(self, *valori):
+        self.n = int(len(valori)/2)
+        self.interval = np.array(valori[:self.n], dtype=int)
+        self.p = np.array(valori[self.n:])
 
     def simulate(self):
         k = 0

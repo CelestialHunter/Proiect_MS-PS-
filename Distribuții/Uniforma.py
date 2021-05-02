@@ -10,4 +10,4 @@ class Unif:
         n = self.b - self.a + 1
         u = random()
         x = int(n * u)
-        return x + self.a
+        return x + int(self.a)

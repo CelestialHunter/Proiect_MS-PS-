@@ -3,10 +3,8 @@ import numpy as np
 
 class NonUnif:
 
-    def __init__(self, *valori):
-        self.n = int(len(valori)/2)
-        self.interval = np.array(valori[:self.n], dtype=int)
-        self.p = np.array(valori[self.n:])
+    def __init__(self, *params):
+        self.X, self.p = np.split(np.array(params), 2)
 
     def simulate(self):
         k = 0
@@ -15,4 +13,4 @@ class NonUnif:
         while u >= F:
             k = k + 1
             F = F + self.p[k]
-        return self.interval[k]
+        return int(self.X[k])

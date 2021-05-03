@@ -26,12 +26,12 @@ if __name__ == "__main__":
         distrbutions = [Bern, Unif, Geom, Exp, NonUnif, Bin]
 
         distr = distrbutions[type](*params)
-        #for i in range(itr):
-            #print(distr.simulate())
+        for i in range(itr):
+            print(distr.simulate())
 
         #FOR TESTING PURPOSES ( WILL DELETE SOON )
         # import numpy as np
-        # X = [5, 10, 14]
+        # X = [5, 10, 14, 9]
         # Y = np.zeros(1000, dtype=int)
         #
         # for i in range(itr):

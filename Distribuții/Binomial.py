@@ -9,22 +9,19 @@ class Bin:
         self.n = len(self.X)
 
     def simulate(self):
-        probs_of_trials = np.zeros(self.n)
-        comb = p = 1
+        prb_trials = np.zeros(self.n)
         n = self.n - 1
-        probs_of_trials[0] = q = self.q**n
+        prb_trials[0] = self.q**n
+
         for i in range(1, self.n):
-            comb *= (n - i + 1)/i
-            p*=self.p
-            q/=self.q
-            probs_of_trials[i] = comb * p * q
+            prb_trials[i] = prb_trials[i - 1] * self.p / self.q * (n - i + 1)/i
 
         k = 0
-        F = probs_of_trials[0]
+        F = prb_trials[0]
         u = random()
         while u >= F:
             k = k + 1
-            F = F + probs_of_trials[k]
+            F = F + prb_trials[k]
 
         return int(self.X[k])
 

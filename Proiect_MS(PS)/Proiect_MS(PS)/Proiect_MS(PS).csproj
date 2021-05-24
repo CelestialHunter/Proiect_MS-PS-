@@ -96,11 +96,45 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="PythonEmbed\pyexpat.pyd" />
+    <None Include="PythonEmbed\python.cat" />
+    <None Include="PythonEmbed\python39.zip" />
+    <None Include="PythonEmbed\python39._pth" />
+    <None Include="PythonEmbed\select.pyd" />
+    <None Include="PythonEmbed\unicodedata.pyd" />
+    <None Include="PythonEmbed\winsound.pyd" />
+    <None Include="PythonEmbed\_asyncio.pyd" />
+    <None Include="PythonEmbed\_bz2.pyd" />
+    <None Include="PythonEmbed\_ctypes.pyd" />
+    <None Include="PythonEmbed\_decimal.pyd" />
+    <None Include="PythonEmbed\_elementtree.pyd" />
+    <None Include="PythonEmbed\_hashlib.pyd" />
+    <None Include="PythonEmbed\_lzma.pyd" />
+    <None Include="PythonEmbed\_msi.pyd" />
+    <None Include="PythonEmbed\_multiprocessing.pyd" />
+    <None Include="PythonEmbed\_overlapped.pyd" />
+    <None Include="PythonEmbed\_queue.pyd" />
+    <None Include="PythonEmbed\_socket.pyd" />
+    <None Include="PythonEmbed\_sqlite3.pyd" />
+    <None Include="PythonEmbed\_ssl.pyd" />
+    <None Include="PythonEmbed\_uuid.pyd" />
+    <None Include="PythonEmbed\_zoneinfo.pyd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PythonEmbed\libcrypto-1_1.dll" />
+    <Content Include="PythonEmbed\libffi-7.dll" />
+    <Content Include="PythonEmbed\libssl-1_1.dll" />
+    <Resource Include="PythonEmbed\LICENSE.txt" />
+    <Content Include="PythonEmbed\python.exe" />
+    <Content Include="PythonEmbed\python3.dll" />
+    <Content Include="PythonEmbed\python39.dll" />
+    <Content Include="PythonEmbed\pythonw.exe" />
+    <Content Include="PythonEmbed\sqlite3.dll" />
+    <Content Include="PythonEmbed\vcruntime140.dll" />
+    <Content Include="PythonEmbed\vcruntime140_1.dll" />
     <Content Include="Scripts\Bernoulli.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -110,6 +144,7 @@
     <Content Include="Scripts\main.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="ToolTips\exp.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Binomial.py">

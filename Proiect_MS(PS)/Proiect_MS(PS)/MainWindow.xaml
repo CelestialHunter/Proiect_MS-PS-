@@ -208,7 +208,11 @@
                     <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                     <TextBox x:Name="expItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>
 
-                    <Button x:Name="expGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="expGetBT_Click"/>
+                    <Button x:Name="expGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="expGetBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource expImg}"/>
+                        </Button.ToolTip>
+                    </Button>
                     <Button x:Name="expfResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="expfResetBT_Click"/>
                 </Grid>
             </TabItem>

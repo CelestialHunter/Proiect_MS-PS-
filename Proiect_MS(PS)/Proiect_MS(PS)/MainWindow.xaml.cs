@@ -21,18 +21,14 @@ namespace Proiect_MS_PS_
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Viewbox[] tabsVB;
         String pythonPath;
         String scriptPath;
         public MainWindow()
         {
             InitializeComponent();
-
-            //tabsVB = new Viewbox[] { bernVB, unifVB, geomVB, expVB, exitVB };
-            initTabSelectCB();            
+            initTabSelectCB();
             pythonPath = getPythonPath();
             scriptPath = getScriptPath();
-            MessageBox.Show(pythonPath + "\n" + scriptPath);
         }
 
         private void initTabSelectCB()
@@ -59,18 +55,25 @@ namespace Proiect_MS_PS_
 
         private String getPythonPath()
         {
-            String[] Paths = Environment.GetEnvironmentVariable("Path").Split(';');
-            foreach(String p in Paths)
-            {
-                if (p.Contains("Python") && !p.Contains("Scripts")) return (p + "python.exe");
-            }
 
-            return null;
+            //String[] Paths = Environment.GetEnvironmentVariable("Path").Split(';');
+            //foreach (String p in Paths)
+            //{
+            //    if (p.Contains("Python") && !p.Contains("Scripts")) return (p + "python.exe");
+            //}
+            //return null;
+
+
+            //String appFolderPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //String pythonFolderPath = Path.Combine(appFolderPath, "PythonEmbed");
+            //return Path.Combine(pythonFolderPath, @"python.exe");
+
+            return "python";
         }
         private String getScriptPath()
         {
             String appFolderPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            String scriptsFolderPath = Path.Combine(Directory.GetParent(appFolderPath).Parent.FullName, "Scripts");
+            String scriptsFolderPath = Path.Combine(appFolderPath, "Scripts");
             return Path.Combine(scriptsFolderPath, @"main.py");
         }
         public String RunScript(String args)
@@ -91,15 +94,6 @@ namespace Proiect_MS_PS_
             process.WaitForExit();
             return result;
         }
-
-        //private void setNewSize()
-        //{
-        //    double newSize = (this.Width * .9) / 5 - 16;
-        //    foreach (Viewbox v in tabsVB)
-        //    {
-        //        v.MaxWidth = newSize;
-        //    }
-        //}
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -149,18 +143,12 @@ namespace Proiect_MS_PS_
                 binkTB.Text = "1 2 3 4";
                 binPTB.Text = "0.3";
             }
-            //if (selectedTab == exitTab)
-            //{
-            //    this.Close();
-            //}
         }
 
         private void setChart(System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
-            //Dictionary<string, double> value;
-            SortedDictionary<string, double> value;
-            //value = new Dictionary<string, double>();
-            value = new SortedDictionary<string, double>();    
+            SortedDictionary<double, double> value; 
+            value = new SortedDictionary<double, double>();
             chart.DataSource = value;
             chart.Series["series"].XValueMember = "Key";
             chart.Series["series"].YValueMembers = "Value";
@@ -169,19 +157,17 @@ namespace Proiect_MS_PS_
             chart.ChartAreas.Add("MainChartArea");
         }
 
-        private void addValue(System.Windows.Forms.DataVisualization.Charting.Chart chart, String[] values)
+        private void addValue(System.Windows.Forms.DataVisualization.Charting.Chart chart, Double[] values)
         {
             if(chart.DataSource==null)
             {
                 MessageBox.Show("canci");
                 return;
             }
-            //Dictionary<string, double> value = (Dictionary<string, double>)chart.DataSource;
-            SortedDictionary<string, double> value = (SortedDictionary<string, double>)chart.DataSource;
+            SortedDictionary<double, double> value = (SortedDictionary<double, double>)chart.DataSource;
 
-            foreach (string s in values)
+            foreach (Double s in values)
             {
-                if (String.IsNullOrWhiteSpace(s)) break;
                 if (value.ContainsKey(s)) value[s]++;
                 else value.Add(s, 1);
             }
@@ -210,7 +196,12 @@ namespace Proiect_MS_PS_
                 return;
             }
 
-            String[] values = RunScript(iterations.ToString() + " 0 " + p.ToString()).Split('\n');
+            String[] valuesString = RunScript(iterations.ToString() + " 0 " + p.ToString()).Split('\n');
+            double[] values = new double[iterations];
+            for(int i=0;i<iterations;i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(bernChart, values);
         }
         private void bernResetBT_Click(object sender, RoutedEventArgs e)
@@ -255,7 +246,12 @@ namespace Proiect_MS_PS_
                 return;
             }
 
-            String[] values = RunScript(iterations.ToString() + " 1 " + a.ToString() + " " + b.ToString()).Split('\n');
+            String[] valuesString = RunScript(iterations.ToString() + " 1 " + a.ToString() + " " + b.ToString()).Split('\n');
+            double[] values = new double[iterations];
+            for (int i = 0; i < iterations; i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(unifChart, values);
         }
 
@@ -283,7 +279,12 @@ namespace Proiect_MS_PS_
                 return;
             }
 
-            String[] values = RunScript(iterations.ToString() + " 2 " + p.ToString()).Split('\n');
+            String[] valuesString = RunScript(iterations.ToString() + " 2 " + p.ToString()).Split('\n');
+            double[] values = new double[iterations];
+            for (int i = 0; i < iterations; i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(geomChart, values);
         }
 
@@ -311,7 +312,12 @@ namespace Proiect_MS_PS_
                 return;
             }
 
-            String[] values = RunScript(iterations.ToString() + " 3 " + p.ToString()).Split('\n');
+            String[] valuesString = RunScript(iterations.ToString() + " 3 " + p.ToString()).Split('\n');
+            double[] values = new double[iterations];
+            for (int i = 0; i < iterations; i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(expChart, values);
         }
 
@@ -404,7 +410,12 @@ namespace Proiect_MS_PS_
                 scriptParam += pbs[i].ToString() + " ";
             }
 
-            String[] values = RunScript(scriptParam).Split('\n');
+            String[] valuesString = RunScript(scriptParam).Split('\n');
+            double[] values = new double[iterations];
+            for (int i = 0; i < iterations; i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(nonUnifChart, values);
         }
 
@@ -443,7 +454,12 @@ namespace Proiect_MS_PS_
             }
             scriptParam += p.ToString();
 
-            String[] values = RunScript(scriptParam).Split('\n');
+            String[] valuesString = RunScript(scriptParam).Split('\n');
+            double[] values = new double[iterations];
+            for (int i = 0; i < iterations; i++)
+            {
+                values[i] = Double.Parse(valuesString[i]);
+            }
             addValue(binChart, values);
         }
 

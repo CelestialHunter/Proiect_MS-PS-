@@ -8,6 +8,7 @@
         <convertors:cbFontSizeConv x:Key="cbFontSizeConv"/>
         <BitmapImage x:Key="bernImg" UriSource="/ToolTips/bern.jpg"/>
         <BitmapImage x:Key="binImg" UriSource="/ToolTips/bin.jpg"/>
+        <BitmapImage x:Key="expImg" UriSource="/ToolTips/exp.jpg"/>
         <BitmapImage x:Key="geomImg" UriSource="/ToolTips/geom.jpg"/>
         <BitmapImage x:Key="neunifImg" UriSource="/ToolTips/neunif.jpg"/>
         <BitmapImage x:Key="unifImg" UriSource="/ToolTips/unif.jpg"/>

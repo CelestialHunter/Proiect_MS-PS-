@@ -7,7 +7,7 @@
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:winformchart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         mc:Ignorable="d"
-        Title="Distribuții Balea-Micloș" Height="450" Width="800" SizeChanged="Window_SizeChanged">
+        Title="Distribuții Balea-Micloș" Height="450" Width="800" SizeChanged="Window_SizeChanged" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid Background="#212750">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width=".05*"/>
@@ -16,18 +16,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*"/>
-            <RowDefinition Height=".8*"/>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".7*"/>
             <RowDefinition Height=".1*"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="distrTabControl" Grid.Row="1" Grid.Column="1" SelectionChanged="distrTabControl_SelectionChanged">
+        <TabControl x:Name="distrTabControl" Grid.Row="2" Grid.Column="1" SelectionChanged="distrTabControl_SelectionChanged">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
             <TabItem x:Name="bernTab">
-                <TabItem.Header>
-                    <Grid>
-                        <Viewbox x:Name="bernVB" MaxWidth="200">
-                            <TextBlock Text="Distribuție Bernoulli"/>
-                        </Viewbox>
-                    </Grid>
-                </TabItem.Header>
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*"/>
@@ -62,37 +61,34 @@
 
                     <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                     <TextBox x:Name="bernItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>
-                    
-                    <Button x:Name="bernGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="bernGenBT_Click"/>
+
+                    <Button x:Name="bernGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="bernGenBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource bernImg}"/>
+                        </Button.ToolTip>
+                    </Button>
                     <Button x:Name="bernResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="bernResetBT_Click"/>
                 </Grid>
 
             </TabItem>
             <TabItem x:Name="unifTab">
-                <TabItem.Header>
-                    <Grid>
-                        <Viewbox x:Name="unifVB" MaxWidth="200">
-                            <TextBlock Text="Distribuție Uniform Discretă"/>
-                        </Viewbox>
-                    </Grid>
-                </TabItem.Header>
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".25*"/>
-                            <ColumnDefinition Width=".25*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height=".1*"/>
-                            <RowDefinition Height=".2*"/>
-                            <RowDefinition Height=".1*"/>
-                            <RowDefinition Height=".2*"/>
-                            <RowDefinition Height=".1*"/>
-                            <RowDefinition Height=".2*"/>
-                            <RowDefinition Height=".1*"/>
-                            <RowDefinition Height=".2*"/>
-                            <RowDefinition Height=".1*"/>
-                        </Grid.RowDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
 
                     <WindowsFormsHost x:Name="unifWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
                         <WindowsFormsHost.Child>
@@ -107,7 +103,7 @@
                     </WindowsFormsHost>
 
                     <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
-                        <TextBox x:Name="unifItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="1" TextWrapping="Wrap"/>
+                    <TextBox x:Name="unifItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="1" TextWrapping="Wrap"/>
 
                     <Label Margin="0" Content="Interval [a, b)" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                     <Grid Grid.Column="2" Grid.Row="3">
@@ -118,20 +114,17 @@
                         <TextBox x:Name="unifLowerTB" Grid.Column="0" Margin="32,10,10,10" Grid.Row="5" Text="1" TextWrapping="Wrap"/>
                         <TextBox x:Name="unifUpperTB" Grid.Column="1" Margin="10,10,32,10" Grid.Row="5" Text="10" TextWrapping="Wrap"/>
                     </Grid>
-                    
 
-                    <Button x:Name="unifGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="unifGetBT_Click"/>
+
+                    <Button x:Name="unifGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="unifGetBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource unifImg}"/>
+                        </Button.ToolTip>
+                    </Button>
                     <Button x:Name="uinifResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="uinifResetBT_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="geomTab">
-                <TabItem.Header>
-                    <Grid>
-                        <Viewbox x:Name="geomVB" MaxWidth="200">
-                            <TextBlock Text="Distribuție Geometrică"/>
-                        </Viewbox>
-                    </Grid>
-                </TabItem.Header>
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*"/>
@@ -165,22 +158,19 @@
 
                     <Label Margin="0" Content="p" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
                     <TextBox x:Name="geomPbTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="1" Text="0.5" TextWrapping="Wrap"/>
-                    
-                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
-                    <TextBox x:Name="geomItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>                 
 
-                    <Button x:Name="geomGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="geomGetBT_Click"/>
+                    <Label Margin="0" Content="Iteratii" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="geomItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="1" TextWrapping="Wrap"/>
+
+                    <Button x:Name="geomGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="geomGetBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource geomImg}"/>
+                        </Button.ToolTip>
+                    </Button>
                     <Button x:Name="geomfResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="geomfResetBT_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="expTab">
-                <TabItem.Header>
-                    <Grid>
-                        <Viewbox x:Name="expVB" MaxWidth="200">
-                            <TextBlock Text="Distribuție Exponențială"/>
-                        </Viewbox>
-                    </Grid>
-                </TabItem.Header>
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".5*"/>
@@ -222,16 +212,115 @@
                     <Button x:Name="expfResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="expfResetBT_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="exitTab">
-                <TabItem.Header>
-                    <Grid>
-                        <Viewbox x:Name="exitVB" MaxWidth="200">
-                            <TextBlock Text="Părăsire Aplicație"/>
-                        </Viewbox>
-                    </Grid>
-                </TabItem.Header>
-            </TabItem>            
+            <TabItem x:Name="nonUnifTab">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="nonUnifWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="nonUnifChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+
+
+                    <Label Margin="0" Content="Numere" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="nonUnifkTB" Grid.Column="2" Margin="32,10,32,40" Grid.Row="1" Grid.RowSpan="3" Text="0 1" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Probabilități" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="nonUnifPTB" Grid.Column="2" Margin="32,10,32,40" Grid.Row="3" Grid.RowSpan="3" Text="0.3 0.7" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Iterații" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="nonUnifItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="5" Text="1" TextWrapping="Wrap"/>
+
+                    <Button x:Name="nonUnifGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="nonUnifGenBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource neunifImg}"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="nonUniffResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="nonUniffResetBT_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="binTab">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".25*"/>
+                        <ColumnDefinition Width=".25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".1*"/>
+                    </Grid.RowDefinitions>
+
+                    <WindowsFormsHost x:Name="binWFH" Grid.Column="0" Grid.Row="1" Grid.RowSpan="7">
+                        <WindowsFormsHost.Child>
+                            <winformchart:Chart x:Name="binChart" Dock="Fill">
+                                <winformchart:Chart.Series>
+                                    <winformchart:Series Name="series" ChartType="Column"/>
+                                </winformchart:Chart.Series>
+                                <winformchart:Chart.ChartAreas>
+                                </winformchart:Chart.ChartAreas>
+                            </winformchart:Chart>
+                        </WindowsFormsHost.Child>
+                    </WindowsFormsHost>
+
+
+                    <Label Margin="0" Content="Numere" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="binkTB" Grid.Column="2" Margin="32,10,32,40" Grid.Row="1" Grid.RowSpan="3" Text="0 1" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="P" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBox x:Name="binPTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="3" Text="0.3" TextWrapping="Wrap"/>
+
+                    <Label Margin="0" Content="Iterații" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center"/>
+                    <TextBox x:Name="binItTB" Grid.Column="2" Margin="32,10,32,10" Grid.Row="5" Text="1" TextWrapping="Wrap"/>
+
+                    <Button x:Name="binGenBT" Content="Generare" Grid.Column="1" Grid.Row="7" Margin="32,10,32,10" Click="binGenBT_Click">
+                        <Button.ToolTip>
+                            <Image Stretch="Uniform" Height="512" Width="768" Source="{StaticResource binImg}"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="binResetBT" Content="Resetare" Grid.Column="2" Grid.Row="7" Margin="32,10,32,10" Click="binResetBT_Click"/>
+                </Grid>
+            </TabItem>
         </TabControl>
+        <ComboBox x:Name="tabSelectCB" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                  FontSize="{Binding ElementName=tabSelectCB, Path=ActualHeight, Converter={StaticResource cbFontSizeConv}}"
+                  MaxDropDownHeight="768" Background="#FFE99A1F"/>
+        <Button x:Name="exitBT" Grid.Column="1" Grid.Row="3" Margin="0, 5" Click="exitBT_Click" Background="#FFE99A1F" Foreground="White">
+            <Viewbox x:Name="exitVB" Margin="0">
+                <TextBlock Text="Părăsire program"/>
+            </Viewbox>
+        </Button>
+
+
     </Grid>
 
 </Window>

@@ -2,7 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Proiect_MS_PS_"
+             xmlns:convertors="clr-namespace:Proiect_MS_PS_.Convertors"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <convertors:cbFontSizeConv x:Key="cbFontSizeConv"/>
+        <BitmapImage x:Key="bernImg" UriSource="/ToolTips/bern.jpg"/>
+        <BitmapImage x:Key="binImg" UriSource="/ToolTips/bin.jpg"/>
+        <BitmapImage x:Key="geomImg" UriSource="/ToolTips/geom.jpg"/>
+        <BitmapImage x:Key="neunifImg" UriSource="/ToolTips/neunif.jpg"/>
+        <BitmapImage x:Key="unifImg" UriSource="/ToolTips/unif.jpg"/>
     </Application.Resources>
 </Application>

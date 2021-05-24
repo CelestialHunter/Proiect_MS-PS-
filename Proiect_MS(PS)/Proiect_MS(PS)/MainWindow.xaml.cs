@@ -21,16 +21,40 @@ namespace Proiect_MS_PS_
     /// </summary>
     public partial class MainWindow : Window
     {
-        Viewbox[] tabsVB;
+        //Viewbox[] tabsVB;
         String pythonPath;
         String scriptPath;
         public MainWindow()
         {
             InitializeComponent();
 
-            tabsVB = new Viewbox[] { bernVB, unifVB, geomVB, expVB, exitVB };
+            //tabsVB = new Viewbox[] { bernVB, unifVB, geomVB, expVB, exitVB };
+            initTabSelectCB();            
             pythonPath = getPythonPath();
             scriptPath = getScriptPath();
+            MessageBox.Show(pythonPath + "\n" + scriptPath);
+        }
+
+        private void initTabSelectCB()
+        {
+            tabSelectCB.Items.Add("Bernoulli");
+            tabSelectCB.Items.Add("Uniformă");
+            tabSelectCB.Items.Add("Geometrică");
+            tabSelectCB.Items.Add("Exponențială");
+            tabSelectCB.Items.Add("Non - Uniformă");
+            tabSelectCB.Items.Add("Binomială");
+            tabSelectCB.SelectionChanged += TabSelectCB_SelectionChanged;
+            tabSelectCB.SelectedIndex = 0;
+        }
+
+        private void TabSelectCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            distrTabControl.SelectedIndex = tabSelectCB.SelectedIndex;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //setNewSize();
         }
 
         private String getPythonPath()
@@ -68,20 +92,19 @@ namespace Proiect_MS_PS_
             return result;
         }
 
-        private void setNewSize()
-        {
-            double newSize = (this.Width * .9) / 5 - 16;
-            foreach (Viewbox v in tabsVB)
-            {
-                v.MaxWidth = newSize;
-            }
-        }
+        //private void setNewSize()
+        //{
+        //    double newSize = (this.Width * .9) / 5 - 16;
+        //    foreach (Viewbox v in tabsVB)
+        //    {
+        //        v.MaxWidth = newSize;
+        //    }
+        //}
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            setNewSize();
+            //setNewSize();
         }
-
 
         private void distrTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -112,16 +135,32 @@ namespace Proiect_MS_PS_
                 expItTB.Text = "1";
                 expPbTB.Text = "0.5";
             }
-            if (selectedTab == exitTab)
+            if(selectedTab == nonUnifTab)
             {
-                this.Close();
+                setChart(nonUnifChart);
+                nonUnifItTB.Text = "1";
+                nonUnifkTB.Text = "0 1";
+                nonUnifPTB.Text = "0.3 0.7";
             }
+            if(selectedTab == binTab)
+            {
+                setChart(binChart);
+                binItTB.Text = "1";
+                binkTB.Text = "1 2 3 4";
+                binPTB.Text = "0.3";
+            }
+            //if (selectedTab == exitTab)
+            //{
+            //    this.Close();
+            //}
         }
 
         private void setChart(System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
-            Dictionary<string, double> value;
-            value = new Dictionary<string, double>();            
+            //Dictionary<string, double> value;
+            SortedDictionary<string, double> value;
+            //value = new Dictionary<string, double>();
+            value = new SortedDictionary<string, double>();    
             chart.DataSource = value;
             chart.Series["series"].XValueMember = "Key";
             chart.Series["series"].YValueMembers = "Value";
@@ -137,9 +176,10 @@ namespace Proiect_MS_PS_
                 MessageBox.Show("canci");
                 return;
             }
-            Dictionary<string, double> value = (Dictionary<string, double>)chart.DataSource;
+            //Dictionary<string, double> value = (Dictionary<string, double>)chart.DataSource;
+            SortedDictionary<string, double> value = (SortedDictionary<string, double>)chart.DataSource;
 
-            foreach(string s in values)
+            foreach (string s in values)
             {
                 if (String.IsNullOrWhiteSpace(s)) break;
                 if (value.ContainsKey(s)) value[s]++;
@@ -278,6 +318,138 @@ namespace Proiect_MS_PS_
         private void expfResetBT_Click(object sender, RoutedEventArgs e)
         {
             setChart(expChart);
+        }
+
+        private void exitBT_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+        public bool TryGetProbabilities(String txt, int k, out double[] pbs)
+        {
+            List<double> pbList = new List<double>();
+
+            String[] pbStrings = txt.Split(' ');
+            pbs = new double[k];
+
+            double sum = 0;
+            double currPb;
+
+            foreach(String pb in pbStrings)
+            {
+                if(!double.TryParse(pb, out currPb))
+                {
+                    sum = 0;
+                    break;
+                }
+                else
+                {
+                    sum += currPb;
+                    pbList.Add(currPb);
+                }
+            }
+
+            if (pbList.Count != k)
+            {
+                MessageBox.Show("Numărul de probabilități nu coincide cu numărul de valori.");
+                pbs = new double[1];
+                pbs[0] = -1;
+                return false;
+            }
+            else if(sum!=1)
+            {
+                MessageBox.Show("Suma probabilităților trebuie să fie 1.");
+                pbs = new double[1];
+                pbs[0] = -1;
+                return false;
+            }
+            else
+            {
+                for(int i=0;i<k;i++)
+                {
+                    pbs[i] = pbList[i];
+                }
+                return true;
+            }
+        }
+
+        private void nonUnifGenBT_Click(object sender, RoutedEventArgs e)
+        {
+            int iterations;
+            int k;
+            double[] pbs;
+
+            if (!int.TryParse(nonUnifItTB.Text, out iterations) || iterations < 1)
+            {
+                MessageBox.Show("Introduceți un număr valid de iterații!");
+                nonUnifItTB.Text = "1";
+                return;
+            }
+
+            String[] numbersString = nonUnifkTB.Text.Split(' ');
+            k = numbersString.Length;
+
+            if(!TryGetProbabilities(nonUnifPTB.Text, k, out pbs))
+            {
+                return;
+            }
+            String scriptParam = iterations.ToString() + " 4 ";
+            for(int i=0; i<k;i++)
+            {
+                scriptParam += numbersString[i] + " ";
+            }
+            for(int i=0;i<k;i++)
+            {
+                scriptParam += pbs[i].ToString() + " ";
+            }
+
+            String[] values = RunScript(scriptParam).Split('\n');
+            addValue(nonUnifChart, values);
+        }
+
+        private void nonUniffResetBT_Click(object sender, RoutedEventArgs e)
+        {
+            setChart(nonUnifChart);
+        }
+
+        private void binGenBT_Click(object sender, RoutedEventArgs e)
+        {
+            int iterations;
+            int k;
+            double p;
+
+            String[] numbersString = binkTB.Text.Split(' ');
+            k = numbersString.Length;
+
+            if (!int.TryParse(binItTB.Text, out iterations) || iterations < 1)
+            {
+                MessageBox.Show("Introduceți un număr valid de iterații!");
+                binItTB.Text = "1";
+                return;
+            }
+
+            if (!double.TryParse(binPTB.Text, out p) || !(p > 0))
+            {
+                MessageBox.Show("Introduceți o probabilitate validă! (Număr pozitiv)");
+                binPTB.Text = "0.5";
+                return;
+            }
+
+            String scriptParam = iterations.ToString() + " 5 ";
+            for (int i = 0; i < k; i++)
+            {
+                scriptParam += numbersString[i] + " ";
+            }
+            scriptParam += p.ToString();
+
+            String[] values = RunScript(scriptParam).Split('\n');
+            addValue(binChart, values);
+        }
+
+        private void binResetBT_Click(object sender, RoutedEventArgs e)
+        {
+            setChart(binChart);
         }
     }
 }

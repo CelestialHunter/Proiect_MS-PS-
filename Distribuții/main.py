@@ -28,16 +28,3 @@ if __name__ == "__main__":
         distr = distrbutions[type](*params)
         for i in range(itr):
             print(distr.simulate())
-
-        #FOR TESTING PURPOSES ( WILL DELETE SOON )
-        # import numpy as np
-        # X = [5, 10, 14, 9]
-        # Y = np.zeros(1000, dtype=int)
-        #
-        # for i in range(itr):
-        #     Y[distr.simulate()]+=1
-        #
-        # #distr.simulate()
-        #
-        # for x in X:
-        #     print(x, 'apare de:', Y[x], 'ori')
